@@ -3,6 +3,7 @@ package justfatlard.kragle;
 import justfatlard.pandorical.api.ItemRegistration;
 import justfatlard.pandorical.api.PandoricalApi;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -65,6 +66,10 @@ public class Main implements ModInitializer {
 
 		Kragle.register();
 		KragleGuard.register();
+
+		if (FabricLoader.getInstance().isModLoaded("block-tip")) {
+			justfatlard.kragle.integration.KragleTips.register();
+		}
 
 		LOGGER.info("[{}] Loaded", MOD_ID);
 	}
