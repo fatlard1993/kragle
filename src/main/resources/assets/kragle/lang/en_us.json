@@ -1,0 +1,10 @@
+{
+  "item.kragle.kragle": "The Kragle",
+  "itemGroup.kragle": "Kragle",
+  "kragle.glued": "Kragled. That %s is yours now",
+  "kragle.unglued": "The glue comes off",
+  "kragle.already_yours": "Already yours",
+  "kragle.already_theirs": "%s glued this one",
+  "kragle.not_yours": "%s glued this one; only they or an operator can take it off",
+  "kragle.refused": "Kragled by %s"
+}

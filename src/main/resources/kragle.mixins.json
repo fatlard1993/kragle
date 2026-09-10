@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "justfatlard.kragle.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ExplosionMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

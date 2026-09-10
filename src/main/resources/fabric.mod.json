@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "kragle",
+  "version": "${version}",
+  "name": "Kragle",
+  "description": "A bottle of glue. What you put it on, nobody else takes apart",
+  "authors": [
+    "justfatlard"
+  ],
+  "contact": {
+    "sources": "https://github.com/fatlard1993/kragle"
+  },
+  "license": "MIT",
+  "icon": "assets/kragle/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "justfatlard.kragle.Main"
+    ]
+  },
+  "mixins": [
+    "kragle.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loaderVersion}",
+    "fabric-api": "${fabricApiVersion}",
+    "minecraft": "${minecraftDependency}",
+    "java": ">=25",
+    "pandorical": "*"
+  }
+}
