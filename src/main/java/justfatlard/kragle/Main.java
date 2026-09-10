@@ -37,11 +37,11 @@ public class Main implements ModInitializer {
 	public static final Identifier KRAGLE_ID = Identifier.fromNamespaceAndPath(MOD_ID, "kragle");
 	public static final ResourceKey<Item> KRAGLE_KEY = ResourceKey.create(Registries.ITEM, KRAGLE_ID);
 
-	// Stacks to one. A bottle does one block, and a stack of sixteen in a pocket is the thing
-	// this is meant not to be.
+	// Vanilla's stack of 64, and whatever stackz makes of that where it is installed. Scarcity is
+	// in the supply - no recipe, handed out on purpose - and in a bottle doing one block, not in
+	// making somebody who was given ten spend ten slots carrying them.
 	public static final Item KRAGLE = new Item(new Item.Properties()
 		.setId(KRAGLE_KEY)
-		.stacksTo(1)
 		.rarity(Rarity.EPIC));
 
 	@Override

@@ -12,7 +12,7 @@ Any block at all: a chest, a spawner, one block of somebody's roof, the bell in 
 
 There is not going to be one. A block nobody can break is not a thing to be farmed. It lives in a creative tab and comes out of `/give`, and that is the whole supply — an operator hands somebody a bottle for a reason.
 
-A bottle does one block and does not stack. That is the only thing keeping it in proportion.
+A bottle does one block, and that is what keeps it in proportion. They stack like anything else — to 64, or as far as [stackz](../stackz) takes a stack where it is installed.
 
 ## Who Can Take It Off
 
