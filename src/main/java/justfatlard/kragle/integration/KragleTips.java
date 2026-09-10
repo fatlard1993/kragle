@@ -2,12 +2,11 @@ package justfatlard.kragle.integration;
 
 import justfatlard.block_tip.api.BlockTipApi;
 import justfatlard.kragle.KragleMarks;
-import justfatlard.kragle.Main;
 
 /**
  * Glue is invisible, so the card is where a player finds out a block will not come apart before
- * they stand there swinging at it. Said ahead of everything else for that reason, with the bottle
- * in front so it reads at a glance, and naming whoever did it because they are the one to ask.
+ * they stand there swinging at it. Said ahead of everything else for that reason, and naming
+ * whoever did it because they are the one to ask.
  */
 public final class KragleTips {
 	private KragleTips() {}
@@ -16,11 +15,9 @@ public final class KragleTips {
 	private static final int PRIORITY = 20;
 
 	public static void register() {
-		BlockTipApi.illustrate(PRIORITY, (level, pos, state, player) -> {
+		BlockTipApi.describe(PRIORITY, (level, pos, state, player) -> {
 			KragleMarks.Owner owner = KragleMarks.get(level).ownerOf(pos);
-			return owner == null
-				? null
-				: new BlockTipApi.Tip("Kragled by " + owner.name(), Main.KRAGLE_ID.toString());
+			return owner == null ? null : "Kragled by " + owner.name();
 		});
 	}
 }
