@@ -28,7 +28,7 @@ Everything around it goes as it would have. Only the glued block stays.
 
 ## Pandorical
 
-Registered through [Pandorical](https://github.com/fatlard1993/pandorical), so this is a server-side mod. A vanilla client sees the bottle and sees the blocks that will not break, and needs nothing installed to see either.
+Registered through [Pandorical](https://github.com/fatlard1993/pandorical), so Kragle itself is installed on the server only: the bottle's item, model and texture reach each client from the server on join. The Kragle is a real item, though, and a real item has to be known to every client, so **Pandorical is required on every client**; there is no vanilla-client fallback. The glue itself is all server-side, so a glued block holds no matter what the player trying to break it has installed.
 
 ## License
 
