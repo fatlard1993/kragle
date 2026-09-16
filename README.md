@@ -20,6 +20,8 @@ The player who glued it, and operators. Nobody else, including whoever owns the 
 
 Both the refusal and the glue say who to ask. A block that simply will not break and says nothing reads as a bug rather than as somebody's.
 
+With [block-tip](https://github.com/fatlard1993/block-tip) installed, a glued block's card says "Kragled by" and the name of whoever glued it, so the question is answered before anybody starts swinging.
+
 ## Explosions
 
 A glued block is taken out of the blast rather than given a blast resistance. Resistance belongs to a kind of block; this belongs to one block in one place, and obsidian-proof cobblestone is not a thing to make every cobblestone.
@@ -29,6 +31,10 @@ Everything around it goes as it would have. Only the glued block stays.
 ## Pandorical
 
 Registered through [Pandorical](https://github.com/fatlard1993/pandorical), so Kragle itself is installed on the server only: the bottle's item, model and texture reach each client from the server on join. The Kragle is a real item, though, and a real item has to be known to every client, so **Pandorical is required on every client**; there is no vanilla-client fallback. The glue itself is all server-side, so a glued block holds no matter what the player trying to break it has installed.
+
+## Development
+
+Installing is in [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## License
 
