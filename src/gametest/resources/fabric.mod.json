@@ -1,0 +1,18 @@
+{
+	"schemaVersion": 1,
+	"id": "kragle-gametest",
+	"version": "1.0.0",
+	"name": "Kragle smoke test",
+	"description": "Loads the mod, joins a world, and fails if anything on the way threw.",
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-client-gametest": [
+			"justfatlard.kragle.gametest.SmokeTest"
+		]
+	},
+	"depends": {
+		"kragle": "*",
+		"fabric-client-gametest-api-v1": "*"
+	}
+}

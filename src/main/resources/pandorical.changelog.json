@@ -1,0 +1,12 @@
+{
+  "overview": [
+    "A bottle of glue. Right-click any block with it and that block is yours: nobody else breaks it, and no explosion takes it.",
+    "Sneak and use it again on something you glued and the glue comes off."
+  ],
+  "versions": {
+    "1.0.0": [
+      "The bottle arrives. Any block at all, one bottle to one block, and blasts are refused as flatly as pickaxes are; the player who glued it and operators can take the glue back off, nobody else.",
+      "No recipe, and there is not going to be one: it lives in a creative tab and comes out of /give. It stacks to 64, further where stackz is installed, and a glued block says whose glue it is on the block tip."
+    ]
+  }
+}
