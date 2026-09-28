@@ -4,6 +4,9 @@
     "Sneak and use it again on something you glued and the glue comes off."
   ],
   "versions": {
+    "1.0.1": [
+      "A mod menu icon of the bottle on the block it protects."
+    ],
     "1.0.0": [
       "The bottle arrives. Any block at all, one bottle to one block.",
       "Blasts are refused as flatly as pickaxes are.",

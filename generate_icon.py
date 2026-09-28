@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Generate Spawner Shards' mod menu icon: the shards, on the wall they came off.
+"""Generate Kragle's mod menu icon: the bottle, on the block it protects.
 
-Mossy cobblestone because that is the room a spawner is found in, dimmed almost
-to grey so the cage's own blues carry the picture. Source pixels are read straight out of the
-vanilla Minecraft jar and scaled nearest neighbour, never smoothed.
+The mod is one item and what it does to a block, so the icon is both: the kragle bottle
+over stone brick. The stone is the ground rather than the subject, and is what the glass
+reads against.
 
-Pure stdlib PNG reader and writer (zlib + struct) so it runs without Pillow, the
-same script generated art approach as the rest of the suite. Deterministic:
-re-running produces identical bytes.
+Pure stdlib PNG reader and writer (zlib + struct) so it runs without Pillow, the same
+script generated art approach as the rest of the suite. Deterministic: re-running produces
+identical bytes.
 
 Usage: python3 generate_icon.py [path/to/minecraft.jar]
 """
@@ -18,7 +18,6 @@ import struct
 import sys
 import zipfile
 import zlib
-from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "src/main/resources/assets/kragle/icon.png")
@@ -192,103 +191,51 @@ def write_png(path, pixels):
     print("wrote %s (%dx%d)" % (path, width, height))
 
 
-
-def cage_palette():
-    """The spawner's own colours, darkest first. The darkest draws the outline and
-    the three brightest are the shard's lit, mid and shadow faces."""
-    counts = Counter(px for row in vanilla("block/spawner.png") for px in row if px[3])
-    tones = sorted((px for px, _ in counts.most_common(5)),
-                   key=lambda p: 0.299*p[0] + 0.587*p[1] + 0.114*p[2])
-    return tones[0], tones[-3], tones[-2], tones[-1]
-
-
-# Three fragments of the same broken thing: one big, two chips. Straight edges and
-# no symmetry, because that is what tells a shard from a pebble.
-SHARDS = [
-    [(4, 2), (8, 4), (7, 13), (2, 9)],
-    [(10, 8), (14, 10), (12, 15), (9, 13)],
-    [(10, 2), (14, 4), (12, 7), (9, 5)],
-]
-
-SUPERSAMPLE = 8
-COVERAGE = 0.43   # how much of a pixel a shard must cover to claim it
-LIT = 0.28        # fraction of the way across a shard that stays lit
-SHADOW = 0.62     # and where it turns to shadow
-OUTLINED = 0.35   # the near corner reads as a lit edge, so it takes no outline
-
-
-def inside(poly, x, y):
-    """Even-odd ray cast."""
-    hit = False
-    j = len(poly) - 1
-    for i in range(len(poly)):
-        (xi, yi), (xj, yj) = poly[i], poly[j]
-        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / (yj - yi) + xi:
-            hit = not hit
-        j = i
-    return hit
-
-
-def rasterize(poly, size=16):
-    """Pixels the polygon covers, supersampled so the straight edges stay straight."""
-    step = 1.0 / SUPERSAMPLE
-    covered = []
-    for y in range(size):
-        for x in range(size):
-            hits = sum(
-                1
-                for sy in range(SUPERSAMPLE)
-                for sx in range(SUPERSAMPLE)
-                if inside(poly, x + (sx + 0.5) * step, y + (sy + 0.5) * step)
-            )
-            if hits >= COVERAGE * SUPERSAMPLE * SUPERSAMPLE:
-                covered.append((x, y))
-    return covered
-
-
-def draw_shards(sprite):
-    outline, dark, mid, light = cage_palette()
-    for poly in SHARDS:
-        covered = rasterize(poly, len(sprite))
-        if not covered:
-            continue
-        filled = set(covered)
-        x0 = min(x for x, _ in covered)
-        y0 = min(y for _, y in covered)
-        span = (max(x for x, _ in covered) - x0) + (max(y for _, y in covered) - y0) or 1
-        for (x, y) in covered:
-            across = ((x - x0) + (y - y0)) / span
-            on_edge = any((x + dx, y + dy) not in filled
-                          for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
-            if on_edge and across > OUTLINED:
-                sprite[y][x] = outline
-            elif across < LIT:
-                sprite[y][x] = light
-            elif across < SHADOW:
-                sprite[y][x] = mid
-            else:
-                sprite[y][x] = dark
-    return sprite
-
-
-
 def scale(pixels, n):
     """Nearest neighbour only: these are pixel textures, never smooth them."""
     return [[px for px in row for _ in range(n)] for row in pixels for _ in range(n)]
 
 
-def dim(px, factor, desaturate):
-    """Dark and close to grey. The wall is the room, not the subject: leave it any
-    contrast of its own and the shards' outlines disappear into the moss."""
-    grey = 0.299 * px[0] + 0.587 * px[1] + 0.114 * px[2]
-    mixed = [c + (grey - c) * desaturate for c in px[:3]]
-    return tuple(min(255, int(c * factor)) for c in mixed) + (px[3],)
+def blank(size=16):
+    return [[CLEAR] * size for _ in range(size)]
+
+
+def stamp(sprite, art, left, top):
+    """Lay art onto the sprite at (left, top); transparent source pixels leave
+    the sprite alone."""
+    for y, row in enumerate(art):
+        for x, px in enumerate(row):
+            if px[3] and 0 <= top + y < len(sprite) and 0 <= left + x < len(sprite[0]):
+                sprite[top + y][left + x] = px
+    return sprite
+
+
+def crop(pixels, left, top, width, height):
+    return [row[left:left + width] for row in pixels[top:top + height]]
+
+
+
+def here(path):
+    """A texture this mod ships, read from the repo rather than the jar."""
+    with open(os.path.join(HERE, path), "rb") as f:
+        return decode_png(f.read())
+
+
+def sample(pixels, width, height):
+    """Nearest neighbour to any size, up or down. Pixel art is never smoothed."""
+    src_h, src_w = len(pixels), len(pixels[0])
+    return [[pixels[y * src_h // height][x * src_w // width] for x in range(width)]
+            for y in range(height)]
+
+
+def fill(colour, size=16):
+    return [[colour] * size for _ in range(size)]
 
 
 def build_icon():
-    wall = [[dim(px, 0.32, 0.6) for px in row] for row in vanilla("block/mossy_cobblestone.png")]
-    return scale(draw_shards(wall), 8)
-
+    sprite = [row[:] for row in vanilla("block/stone_bricks.png")]
+    stamp(sprite, here("src/main/resources/assets/kragle/textures/item/kragle.png"), 0, 0)
+    return scale(sprite, 8)
 
 if __name__ == "__main__":
     icon = build_icon()
