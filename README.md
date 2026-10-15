@@ -30,7 +30,7 @@ Everything around it goes as it would have. Only the glued block stays.
 
 ## Pandorical
 
-Registered through [Pandorical](https://github.com/fatlard1993/pandorical), so Kragle itself is installed on the server only: the bottle's item, model and texture reach each client from the server on join. The Kragle is a real item, though, and a real item has to be known to every client, so **Pandorical is required on every client**; there is no vanilla-client fallback. The glue itself is all server-side, so a glued block holds no matter what the player trying to break it has installed.
+Kragle goes on the server only, and **Pandorical is required there and on every player's client**: the bottle is a new item, and a client without Pandorical has no entry for it. The glue itself is all server-side, so a glued block holds whatever the player trying to break it has installed.
 
 ## Development
 
