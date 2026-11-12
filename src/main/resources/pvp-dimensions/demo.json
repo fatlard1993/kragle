@@ -1,0 +1,37 @@
+{
+  "demo": {
+    "name": "Kragle",
+    "icon": "kragle:kragle",
+    "about": [
+      "A bottle of glue: right-click a block with it and nobody else can break it, and no explosion takes it either.",
+      "Build a little wall, glue a few of its blocks, then blow it up with TNT and see what is left standing. Sneak and right-click a glued block to take the glue off."
+    ]
+  },
+  "pvp_preset": 1,
+  "needs": ["kragle"],
+  "preset": {
+    "name": "Kragle",
+    "icon": "kragle:kragle",
+    "pvp": false,
+    "game_mode": "survival",
+    "entry_kit": [
+      {"slot": 0, "item": {"id": "kragle:kragle", "count": 16}},
+      {"slot": 1, "item": {"id": "minecraft:oak_planks", "count": 64}},
+      {"slot": 2, "item": {"id": "minecraft:cobblestone", "count": 64}},
+      {"slot": 3, "item": {"id": "minecraft:glass", "count": 32}},
+      {"slot": 4, "item": {"id": "minecraft:tnt", "count": 8}},
+      {"slot": 5, "item": {"id": "minecraft:flint_and_steel", "count": 1}},
+      {"slot": 6, "item": {"id": "minecraft:iron_pickaxe", "count": 1}},
+      {"slot": 7, "item": {"id": "minecraft:cooked_beef", "count": 8}}
+    ],
+    "respawn_kit": "entry",
+    "goal": "time",
+    "mobs": "off",
+    "life": 15,
+    "size": 2,
+    "world": "overworld",
+    "shape": "flat",
+    "biome": "minecraft:plains",
+    "weather": "clear"
+  }
+}
