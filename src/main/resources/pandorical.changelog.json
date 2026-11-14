@@ -4,6 +4,9 @@
     "Sneak and use it again on something you glued and the glue comes off."
   ],
   "versions": {
+    "1.0.5": [
+      "A demo to play in PvP Dimensions' onboarding."
+    ],
     "1.0.4": [
       "Drop changelog notes for changes nothing in the game shows."
     ],
