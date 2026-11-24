@@ -47,6 +47,11 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// A glued block is not in a blast: a property of one block in one place, which no blast resistance can say
+		PandoricalApi.blasts().protect((level, pos) -> {
+			KragleMarks marks = KragleMarks.get(level);
+			return marks.count() > 0 && marks.isGlued(pos);
+		});
 		if (PandoricalApi.isAvailable()) {
 			PandoricalApi.content().registerItem(MOD_ID + ":kragle", new ItemRegistration()
 				.model(MOD_ID + ":item/kragle"));

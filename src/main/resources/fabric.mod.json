@@ -18,15 +18,12 @@
       "justfatlard.kragle.Main"
     ]
   },
-  "mixins": [
-    "kragle.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=${loaderVersion}",
     "fabric-api": "${fabricApiVersion}",
     "minecraft": "${minecraftDependency}",
     "java": ">=25",
-    "pandorical": ">=15.0.0"
+    "pandorical": ">=15.37.0"
   },
   "suggests": {
     "block-tip": "*"
