@@ -47,11 +47,16 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// A glued block is not in a blast: a property of one block in one place, which no blast resistance can say
-		PandoricalApi.blasts().protect((level, pos) -> {
-			KragleMarks marks = KragleMarks.get(level);
-			return marks.count() > 0 && marks.isGlued(pos);
-		});
+		// A glued block is not in a blast: a property of one block in one place, which no blast resistance can say.
+		// A Pandorical from before the blast hook has no such call, and is left to run without it.
+		try {
+			PandoricalApi.blasts().protect((level, pos) -> {
+				KragleMarks marks = KragleMarks.get(level);
+				return marks.count() > 0 && marks.isGlued(pos);
+			});
+		} catch (LinkageError older) {
+			System.err.println("[" + MOD_ID + "] Pandorical is older than 15.37.0, so explosions can break glued blocks");
+		}
 		if (PandoricalApi.isAvailable()) {
 			PandoricalApi.content().registerItem(MOD_ID + ":kragle", new ItemRegistration()
 				.model(MOD_ID + ":item/kragle"));
